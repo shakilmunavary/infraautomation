@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Env</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Request For New Infra </h2>
+<br>
+<br>
+
+<form action="snow.html">
+
+Enter Environment Name : <input type="text" value="QA"/> <br>
+ <br>
+    Select Infra Reference Template :
+    <select id="optionSelect" onchange="showTable()">
+        <option value="none">Choose an option</option>
+        <option value="tom">Tomcat 3 Tier Infra</option>
+        <option value="win">Windows VDI</option>
+    </select>
+
+ <table id="Tomcat" width="50%">
+  <tr>
+    <th colspan="2" scope="col">VPC Details </th>
+  </tr>
+  <tr>
+    <td>Select VPC</td>
+    <td>
+	
+	<select onchange="loadsubnet()">
+        <option value="none">Choose an option</option>
+        <option value="tom" selected="selected">VPC1</option>
+        <option value="win">VPC2</option>
+    </select>
+	
+	</td>
+  </tr>
+  <tr>
+    <td>CIDR</td>
+    <td><input type="text" value="['0.0.0.0/0']" /></td>
+  </tr>
+  
+  
+ <tr>
+    <th colspan="2" scope="col">Instance Details</th>
+  </tr>
+  <tr>
+    <td>AMI</td>
+    <td><input type="text" value="ami-12345678"/></td>
+  </tr>
+  <tr>
+    <td>Subnet</td>
+    <td>	
+	
+	<select  onchange="loadsubnet()">
+        <option value="none">Choose an option</option>
+        <option value="sub1">Private Subnet 1</option>
+        <option value="sub2">Private Subnet 2</option>
+    </select>
+	
+	</td>
+  </tr>
+  
+  
+    <tr>
+    <td>User Data</td>
+    <td>	
+	
+	<textarea wrap="physical" rows="10" cols="180"> 
+	 user_data = <<-EOF
+              #!/bin/bash
+              yum install -y java
+              wget http://mirror.centos.org/centos/7/updates/x86_64/Packages/tomcat-8.5.55-1.el7_6.x86_64.rpm
+              rpm -ivh tomcat-8.5.55-1.el7_6.x86_64.rpm
+              service tomcat start
+              EOF
+      }
+	</textarea>
+	</td>
+  </tr>
+  
+    <tr>
+    <td colspan="2" align="center"><input name="Submit" type="submit" value="Create Service Request"/></td>
+  </tr>
+  
+ </table>
+
+
+<table id="Windows" width="50%">
+  <tr>
+    <th colspan="2" scope="col">VPC Details </th>
+  </tr>
+  <tr>
+    <td>Select VPC</td>
+    <td>
+	
+	<select onchange="loadsubnet()">
+        <option value="none">Choose an option</option>
+        <option value="tom" selected="selected">VPC1</option>
+        <option value="win">VPC2</option>
+    </select>
+	
+	</td>
+  </tr>
+  <tr>
+    <td>CIDR</td>
+    <td><input type="text" value="['0.0.0.0/0']" /></td>
+  </tr>
+  
+  
+ <tr>
+    <th colspan="2" scope="col">Instance Details</th>
+  </tr>
+  <tr>
+    <td>AMI</td>
+    <td><input type="text" value="ami-12345678"/></td>
+  </tr>
+  <tr>
+    <td>Subnet</td>
+    <td>	
+	
+	<select  onchange="loadsubnet()">
+        <option value="none">Choose an option</option>
+        <option value="sub1">Private Subnet 1</option>
+        <option value="sub2">Private Subnet 2</option>
+    </select>
+	
+	</td>
+  </tr>
+  
+  
+    <tr>
+    <td>User Data</td>
+    <td>	
+	
+	<textarea wrap="physical" rows="10" cols="180"> 
+	 user_data = <<-EOF
+              #!/bin/bash
+              yum install -y java
+              wget http://mirror.centos.org/centos/7/updates/x86_64/Packages/tomcat-8.5.55-1.el7_6.x86_64.rpm
+              rpm -ivh tomcat-8.5.55-1.el7_6.x86_64.rpm
+              service tomcat start
+              EOF
+      }
+	</textarea>
+	</td>
+  </tr>
+  
+    <tr>
+    <td colspan="2" align="center">
+	<input name="Submit" type="submit" value="Create Service Request"/></td>
+  </tr>
+  
+ </table>
+
+    <script>
+        function showTable() {
+            var select = document.getElementById("optionSelect");
+            var tom = document.getElementById("Tomcat");
+            var win = document.getElementById("Windows");
+			
+            if (select.value === "tom") {
+                tom.style.display = "table"; // Show the table
+				win.style.display = "none"; 
+            } else if (select.value === "win")   {
+                 tom.style.display = "none"; // Show the table
+				win.style.display = "table"; 
+            }
+        }
+    </script>
+</form>
+</body>
+</html>
