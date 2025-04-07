@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Value Stream Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .chart {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .chart h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .chart-placeholder {
+            background-color: #e0e0e0;
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .sidebar {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            width: 250px;
+            position: fixed;
+            height: 100%;
+            top: 0;
+        }
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DevOps Value Stream Portal</h1>
+        <p>Your AI-powered DevOps Dashboard</p>
+    </header>
+
+    <div class="sidebar">
+        <h2>Navigation</h2>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Pipeline Metrics</a></li>
+            <li><a href="#">Build Failure Analytics</a></li>
+            <li><a href="#">Change Impact Analysis</a></li>
+            <li><a href="#">Anomaly Detection</a></li>
+        </ul>
+    </div>
+
+    <section style="margin-left: 270px;">
+        <h2>DevOps Value Stream Overview</h2>
+        <div class="dashboard">
+            <div class="chart">
+                <h3>Build Success Rate</h3>
+                <canvas id="buildSuccessChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Pipeline Duration</h3>
+                <canvas id="pipelineDurationChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Build Failures Over Time</h3>
+                <canvas id="buildFailuresChart"></canvas>
+            </div>
+        </div>
+
+        <h2>Failure Analysis</h2>
+        <div class="dashboard">
+            <div class="chart">
+                <h3>Top Failure Reasons</h3>
+                <canvas id="failureReasonsChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Failed Job Insights</h3>
+                <canvas id="failedJobInsightsChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>AI Recommendations</h3>
+                <div class="chart-placeholder">Chart here</div>
+            </div>
+        </div>
+
+        <h2>Change Impact Analysis</h2>
+        <div class="dashboard">
+            <div class="chart">
+                <h3>Impact of Recent Changes</h3>
+                <div class="chart-placeholder">Chart here</div>
+            </div>
+            <div class="chart">
+                <h3>Deployment Risk Level</h3>
+                <div class="chart-placeholder">Chart here</div>
+            </div>
+        </div>
+
+        <h2>Anomaly Detection</h2>
+        <div class="dashboard">
+            <div class="chart">
+                <h3>Detected Anomalies</h3>
+                <div class="chart-placeholder">Chart here</div>
+            </div>
+            <div class="chart">
+                <h3>Alert Summary</h3>
+                <div class="chart-placeholder">Chart here</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Build Success Rate Chart (Bar Chart)
+        const buildSuccessChartCtx = document.getElementById('buildSuccessChart').getContext('2d');
+        const buildSuccessChart = new Chart(buildSuccessChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Success', 'Failed'],
+                datasets: [{
+                    label: 'Build Success Rate',
+                    data: [80, 20],
+                    backgroundColor: ['#4caf50', '#f44336'],
+                    borderColor: ['#388e3c', '#d32f2f'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Pipeline Duration Chart (Line Chart)
+        const pipelineDurationChartCtx = document.getElementById('pipelineDurationChart').getContext('2d');
+        const pipelineDurationChart = new Chart(pipelineDurationChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [{
+                    label: 'Average Pipeline Duration (minutes)',
+                    data: [20, 35, 30, 40, 25],
+                    fill: false,
+                    borderColor: '#2196f3',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Build Failures Over Time Chart (Line Chart)
+        const buildFailuresChartCtx = document.getElementById('buildFailuresChart').getContext('2d');
+        const buildFailuresChart = new Chart(buildFailuresChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Build Failures',
+                    data: [5, 8, 3, 7],
+                    fill: false,
+                    borderColor: '#f44336',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Top Failure Reasons Chart (Pie Chart)
+        const failureReasonsChartCtx = document.getElementById('failureReasonsChart').getContext('2d');
+        const failureReasonsChart = new Chart(failureReasonsChartCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Network Issues', 'Code Bugs', 'Dependency Failures', 'Timeouts'],
+                datasets: [{
+                    label: 'Failure Reasons',
+                    data: [30, 25, 20, 25],
+                    backgroundColor: ['#ffeb3b', '#ff5722', '#2196f3', '#9c27b0'],
+                    borderColor: ['#fbc02d', '#d32f2f', '#1976d2', '#8e24aa'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Failed Job Insights Chart (Bar Chart)
+        const failedJobInsightsChartCtx = document.getElementById('failedJobInsightsChart').getContext('2d');
+        const failedJobInsightsChart = new Chart(failedJobInsightsChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Job A', 'Job B', 'Job C', 'Job D'],
+                datasets: [{
+                    label: 'Failed Jobs',
+                    data: [10, 5, 3, 8],
+                    backgroundColor: '#e91e63',
+                    borderColor: '#d81b60',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
